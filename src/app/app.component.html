@@ -4,9 +4,9 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Pokédex</a>
     </div>
-     <form class="navbar-form navbar-left" #Form="ngForm" (ngSubmit)="search(Form)">
+     <form class="navbar-form navbar-right" #Form="ngForm" (ngSubmit)="search(Form)">
       <div class="form-group">
-        <input type="text" class="form-control" auto-complete [source]="names" id="search" (keyup)="filter()" name="search" placeholder="Enter your N°/Name here">
+        <input type="text" class="form-control" auto-complete [source]="names" id="search" (keyup)="filter()" name="search" placeholder="Enter N°/Name here">
       </div>
       <button type="submit" class="btn btn-default">Search</button>
     </form>
@@ -34,15 +34,16 @@
     </div>
 
     <div class="col-sm-6">
-      <div class="caption" style="text-align:center">
+      <div class="caption" style="text-align:center; margin-top: 100px">
         <div *ngIf="err">
           <p>The pokemon {{ err }} not found..</p>
         </div>
         <div *ngIf="service.loading == true">
+          <img src="{{img}}"/>
           <p>Id: {{ data.id }}</p>
           <p>Name: {{ data.name }}</p>
           <p>Weight: {{ data.weight }}</p>
-          Types: <span *ngFor='let value of type'>{{ value }}</span>
+          Types: <span *ngFor='let value of type'>{{ value }} </span>
         </div>
       </div>
     </div>

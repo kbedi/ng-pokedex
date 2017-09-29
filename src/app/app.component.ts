@@ -1,6 +1,7 @@
 import { Component, Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { NgForm } from '@angular/forms';
+import Pokemon from 'pokemon-images';//module pour recupérer les images de pokémons
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -22,6 +23,7 @@ export class AppComponent {
   names: any = [];
   filtre: any = "";
   loading = false;
+  img = "";
   err = "";
 
   constructor(
@@ -64,7 +66,8 @@ export class AppComponent {
         this.getData(data.types[i].type.url).subscribe(type => {
           this.type.push(type.name);
         })
-      }//boucle pour mettre le ou les types d'un pokemon dans un tableau 
+      }//boucle pour mettre le ou les types d'un pokemon dans un tableau
+      this.img = Pokemon.getSprite(data.name);//recupère l'image du pokémon
       this.data = data;
     })
   }//traite la réponse de l'API pour pouvoir afficher les infos d'un pokemon
