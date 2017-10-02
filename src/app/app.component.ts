@@ -56,10 +56,9 @@ export class AppComponent {
 
   getInfoPokemon(url) {
     this.service.loading = false;
-    if(this.data) {
-      this.type = [];
-      this.data = {};
-    }//vide totalement la data existante
+    this.data = {};
+    this.type = [];
+    this.img = "";
     this.getData(url).subscribe(data => {
       this.service.loading = true;
       for(var i = 0; i < data.types.length; i++){
@@ -73,11 +72,10 @@ export class AppComponent {
   }//traite la réponse de l'API pour pouvoir afficher les infos d'un pokemon
 
   search(form: NgForm) {
-    if(this.data) {
-      this.type = [];
-      this.data = {};
-    }
+    this.data = {};
+    this.type = [];
     this.err = "";
+    this.img = "";
     this.getData(this.apiUrl + this.filtre).subscribe(
       data => {
         this.service.loading = true;
@@ -86,6 +84,7 @@ export class AppComponent {
             this.type.push(type.name);
           })
         }
+        this.img = Pokemon.getSprite(data.name);
         this.data = data;
       },
       error => {
@@ -101,7 +100,6 @@ export class AppComponent {
     list = document.getElementById("pokemons");
     li = list.getElementsByTagName('li');
 
-    // Loop through all list items, and hide those who don't match the search query
     for (i = 0; i < li.length; i++) {
       if (li[i].innerHTML.toLowerCase().indexOf(filter) > -1) {
           li[i].style.display = "";
